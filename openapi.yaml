@@ -1,0 +1,195 @@
+openapi: "3.0.0"
+info:
+  version: "1.0.0"
+  title: "Cars & Drivers"
+servers:
+- url: http://localhost/api
+tags:
+- name: "car"
+- name: "driver"
+paths:
+  /cars:
+    get:
+      tags:
+      - "car"
+      summary: "Get all cars"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Car"
+    post:
+      tags:
+      - "car"
+      summary: "Create a car"
+      description: ""
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Car"
+  /cars/{id}:
+    get:
+      tags:
+      - "car"
+      summary: "Get a car"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Car"
+        "404":
+          description: ""
+    put:
+      tags:
+      - "car"
+      summary: "Update a car"
+      description: ""
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                driver_id:
+                  type: "integer"
+                  format: "int64"
+                  nullable: true
+                  description: "Driver ID (unique)"
+      responses:
+        "200":
+          description: ""
+        "400":
+          description: "The driver id has already been taken"
+        "404":
+          description: ""
+    delete:
+      tags:
+      - "car"
+      summary: "Delete a car"
+      description: ""
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+      responses:
+        "200":
+          description: ""
+        "404":
+          description: ""
+  /drivers:
+    get:
+      tags:
+      - "driver"
+      summary: "Get all drivers"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Driver"
+    post:
+      tags:
+      - "driver"
+      summary: "Create a driver"
+      description: ""
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Driver"
+  /drivers/{id}:
+    get:
+      tags:
+      - "driver"
+      summary: "Get a driver"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Driver"
+        "404":
+          description: ""
+    delete:
+      tags:
+      - "driver"
+      summary: "Delete a driver"
+      description: ""
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+      responses:
+        "200":
+          description: ""
+        "404":
+          description: ""
+components:
+  schemas:
+    Car:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        driver_id:
+          type: "integer"
+          format: "int64"
+        created_at:
+          type: "string"
+          format: "date-time"
+        updated_at:
+          type: "string"
+          format: "date-time"
+    Driver:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        created_at:
+          type: "string"
+          format: "date-time"
+        updated_at:
+          type: "string"
+          format: "date-time"
